@@ -24,7 +24,6 @@ commandHandler.start(async (ctx) => {
 
     if (value && isNew) {
       if (notSubscribe) {
-        console.log("легит");
         await ctx.reply(text.subscribe, checkButton(value));
       } else {
         await ctx.reply(text.start.make_menu, mainButton);
