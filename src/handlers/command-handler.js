@@ -26,12 +26,12 @@ commandHandler.start(async (ctx) => {
       if (notSubscribe) {
         await ctx.reply(text.subscribe, checkButton(value));
       } else {
-        await ctx.reply(text.start.make_menu, mainButton);
-        await ctx.reply(text.menu.main, inviteButton(id));
         const referal = await dbService.getUser(value);
         referal.balance += 777;
         referal.referals += 1;
         await referal.save();
+        await ctx.reply(text.start.invite + referal.firstname, mainButton);
+        await ctx.reply(text.menu.main, inviteButton(id));
         await ctx.telegram.sendMessage(
           referal.id,
           text.start.referal + referal.referals

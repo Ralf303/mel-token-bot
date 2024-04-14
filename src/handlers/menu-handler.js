@@ -11,7 +11,7 @@ config({
 
 const menuHandler = new Composer();
 
-menuHandler.hears("🗒 Главная", async (ctx) => {
+menuHandler.hears(text.main_button.main, async (ctx) => {
   try {
     const { id } = ctx.from;
     await ctx.reply(text.start.make_menu, mainButton);
@@ -22,14 +22,14 @@ menuHandler.hears("🗒 Главная", async (ctx) => {
   }
 });
 
-menuHandler.hears("💰 Баланс", async (ctx) => {
+menuHandler.hears(text.main_button.balance, async (ctx) => {
   try {
     const { id, first_name } = ctx.from;
     const user = await dbService.getUser(String(id), first_name);
     await ctx.replyWithHTML(
-      `Твой айди: <code>${id}</code>\n` +
-        text.menu.balance.balance +
+      text.menu.balance.balance +
         user.balance +
+        " $MELL" +
         text.menu.balance.referals +
         user.referals +
         text.menu.balance.text,
@@ -41,7 +41,7 @@ menuHandler.hears("💰 Баланс", async (ctx) => {
   }
 });
 
-menuHandler.hears("👛 Кошелек", async (ctx) => {
+menuHandler.hears(text.main_button.walet, async (ctx) => {
   try {
     const { id, first_name } = ctx.from;
     const user = await dbService.getUser(String(id), first_name);
@@ -51,6 +51,46 @@ menuHandler.hears("👛 Кошелек", async (ctx) => {
         text.menu.wallet.text
     );
     await ctx.scene.enter("walletScene");
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+menuHandler.hears(text.main_button.terms.ru, async (ctx) => {
+  try {
+    const { id } = ctx.from;
+    await ctx.replyWithHTML(
+      text.menu.terms.ru.start +
+        `<code>${process.env.BOT_URL}?start=${id}</code>` +
+        text.menu.terms.ru.end,
+      inviteButton(id)
+    );
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+menuHandler.hears(text.main_button.terms.eng, async (ctx) => {
+  try {
+    const { id } = ctx.from;
+    await ctx.replyWithHTML(
+      text.menu.terms.eng.start +
+        `<code>${process.env.BOT_URL}?start=${id}</code>` +
+        text.menu.terms.eng.end,
+      inviteButton(id)
+    );
+    return;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+menuHandler.hears(text.main_button.twitter, async (ctx) => {
+  try {
+    const { id } = ctx.from;
+    await ctx.replyWithHTML(text.menu.twitter, inviteButton(id));
     return;
   } catch (error) {
     console.log(error);

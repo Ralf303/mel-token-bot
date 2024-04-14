@@ -7,7 +7,10 @@ config({
 
 const inviteButton = (id) => {
   return Keyboard.inline([
-    Key.url(text.invite_friend, `${process.env.BOT_URL}?start=${id}`),
+    Key.url(
+      text.invite_friend,
+      `https://t.me/share/url?url=${process.env.BOT_URL}?start=${id}`
+    ),
   ]);
 };
 
@@ -23,6 +26,8 @@ const checkButton = (value) => {
 const mainButton = Keyboard.make([
   [text.main_button.main],
   [text.main_button.walet, text.main_button.balance],
+  [text.main_button.terms.ru, text.main_button.terms.eng],
+  [text.main_button.twitter],
 ]).reply();
 
 const stopButton = Keyboard.make([[text.scenes.stop]]).reply();
