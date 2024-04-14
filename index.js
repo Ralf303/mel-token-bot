@@ -28,9 +28,7 @@ const start = async () => {
       })
     );
     bot.use(indexHandler);
-    await bot.launch({
-      webhook: { domain: process.env.WEB_HOOK_URL, port: 443 },
-    });
+    await bot.launch();
   } catch (error) {
     console.log(error);
   }
