@@ -28,7 +28,7 @@ const start = async () => {
       })
     );
     bot.use(indexHandler);
-    await bot.launch();
+    await bot.launch({ dropPendingUpdates: true });
   } catch (error) {
     console.log(error);
   }
