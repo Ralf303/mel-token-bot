@@ -12,6 +12,7 @@ const actionsHandler = new Composer();
 
 actionsHandler.action("check", async (ctx) => {
   try {
+    const keyboard = inviteButton(ctx.from.id);
     const { status } = await ctx.telegram.getChatMember(
       process.env.CHANNEL_ID,
       ctx.from.id
@@ -26,7 +27,13 @@ actionsHandler.action("check", async (ctx) => {
 
     await ctx.deleteMessage();
     await ctx.reply(text.start.make_menu, mainButton);
-    await ctx.reply(text.menu.main, inviteButton(ctx.from.id));
+    await ctx.replyWithPhoto(
+      { source: "img/main.png" },
+      {
+        caption: text.menu.main,
+        reply_markup: keyboard,
+      }
+    );
   } catch (error) {
     console.log(error);
   }
@@ -34,6 +41,7 @@ actionsHandler.action("check", async (ctx) => {
 
 actionsHandler.action(/ref_([^]+)/, async (ctx) => {
   try {
+    const keyboard = inviteButton(ctx.from.id);
     const { status } = await ctx.telegram.getChatMember(
       process.env.CHANNEL_ID,
       ctx.from.id
@@ -48,9 +56,15 @@ actionsHandler.action(/ref_([^]+)/, async (ctx) => {
 
     const data = ctx.match[1].split("_");
     await ctx.reply(text.start.make_menu, mainButton);
-    await ctx.reply(text.menu.main, inviteButton(ctx.from.id));
+    await ctx.replyWithPhoto(
+      { source: "img/main.png" },
+      {
+        caption: text.menu.main,
+        reply_markup: keyboard,
+      }
+    );
     const referal = await dbService.getUser(data);
-    referal.balance += 777;
+    referal.balance += 111;
     referal.referals += 1;
     await referal.save();
     await ctx.telegram.sendMessage(

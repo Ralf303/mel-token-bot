@@ -8,7 +8,7 @@ const User = db.define("user", {
     unique: true,
   },
   firstname: { type: DataTypes.STRING, defaultValue: "" },
-  balance: { type: DataTypes.INTEGER, defaultValue: 777 },
+  balance: { type: DataTypes.INTEGER, defaultValue: 111 },
   address: { type: DataTypes.STRING, defaultValue: "Кошелек не привязан" },
   referals: { type: DataTypes.INTEGER, defaultValue: 0 },
   isAdmin: { type: DataTypes.BOOLEAN, defaultValue: false },

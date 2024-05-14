@@ -6,21 +6,27 @@ config({
 });
 
 const inviteButton = (id) => {
-  return Keyboard.inline([
+  const { reply_markup } = Keyboard.inline([
     Key.url(
       text.invite_friend,
       `https://t.me/share/url?url=${process.env.BOT_URL}?start=${id}`
     ),
   ]);
+  return reply_markup;
 };
 
 const checkButton = (value) => {
   if (value === true) {
-    return Keyboard.inline([Key.callback(text.check_subscribe.check, "check")]);
+    const { reply_markup } = Keyboard.inline([
+      Key.callback(text.check_subscribe.check, "check"),
+    ]);
+    return reply_markup;
   }
-  return Keyboard.inline([
+
+  const { reply_markup } = Keyboard.inline([
     Key.callback(text.check_subscribe.check, `ref_${value}`),
   ]);
+  return reply_markup;
 };
 
 const mainButton = Keyboard.make([

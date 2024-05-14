@@ -32,14 +32,21 @@ walletScene.on(message("text"), async (ctx) => {
       ctx.from.first_name
     );
     user.address = ctx.message.text;
+    const { reply_markup } = mainButton;
     await user.save();
     await ctx.react("✍");
-    await ctx.replyWithHTML(
-      text.scenes.wallet.adress_complite.adress +
-        `<code>${ctx.message.text}</code>` +
-        text.scenes.wallet.adress_complite.text,
-      mainButton
+    await ctx.replyWithPhoto(
+      { source: "img/wallet.png" },
+      {
+        caption:
+          text.scenes.wallet.adress_complite.adress +
+          `<code>${ctx.message.text}</code>` +
+          text.scenes.wallet.adress_complite.text,
+        reply_markup: reply_markup,
+        parse_mode: "HTML",
+      }
     );
+
     await ctx.scene.leave();
   } catch (error) {
     console.log(error);
