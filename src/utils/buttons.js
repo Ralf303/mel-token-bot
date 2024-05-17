@@ -17,16 +17,16 @@ const inviteButton = (id) => {
 
 const checkButton = (value) => {
   if (value === true) {
-    const { reply_markup } = Keyboard.inline([
+    const keyboard = Keyboard.inline([
       Key.callback(text.check_subscribe.check, "check"),
     ]);
-    return reply_markup;
+    return keyboard;
   }
 
-  const { reply_markup } = Keyboard.inline([
+  const keyboard = Keyboard.inline([
     Key.callback(text.check_subscribe.check, `ref_${value}`),
   ]);
-  return reply_markup;
+  return keyboard;
 };
 
 const mainButton = Keyboard.make([

@@ -55,7 +55,8 @@ actionsHandler.action(/ref_([^]+)/, async (ctx) => {
     }
 
     const data = ctx.match[1].split("_");
-    await ctx.reply(text.start.make_menu, mainButton);
+    const referal = await dbService.getUser(data);
+    await ctx.reply(text.start.invite + referal.firstname, mainButton);
     await ctx.replyWithPhoto(
       { source: "img/main.png" },
       {
@@ -63,7 +64,6 @@ actionsHandler.action(/ref_([^]+)/, async (ctx) => {
         reply_markup: keyboard,
       }
     );
-    const referal = await dbService.getUser(data);
     referal.balance += 111;
     referal.referals += 1;
     await referal.save();
