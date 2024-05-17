@@ -50,10 +50,11 @@ actionsHandler.action(/ref_([^]+)/, async (ctx) => {
       status !== "creator" && status !== "administrator" && status !== "member";
 
     if (notSubscribe) {
+      await ctx.deleteMessage();
       await ctx.answerCbQuery(text.check_subscribe.not_subscribe);
       return;
     }
-
+    await ctx.deleteMessage();
     const data = ctx.match[1].split("_");
     const referal = await dbService.getUser(data);
     await ctx.reply(text.start.invite + referal.firstname, mainButton);
