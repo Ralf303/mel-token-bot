@@ -17,7 +17,7 @@ const start = async () => {
     await dbService.connect();
 
     bot.catch(async (err) => {
-      console.log(`Error occurred: ${err}`);
+      console.log(`Ошибка какая то: ${err}`);
     });
     bot.use(session());
     bot.use(stage.middleware());
